@@ -1,8 +1,8 @@
-import Signin from '../../components/sign-in/sign-in'
+import SignIn from '../../components/sign-in/sign-in'
 function SignInAndSignUp() {
     return ( 
         <div>
-            <Signin/>
+            <SignIn/>
         </div>
      );
 }
