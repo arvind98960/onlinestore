@@ -1,14 +1,9 @@
-// Import the functions you need from the SDKs you need
-import firebase from 'firebase/app'; 
-import 'firebase/auth'; //v8
 
-import 'firebase/firestore'; //v8
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import firebase from 'firebase/app';
+import 'firebase/firestore';
+import 'firebase/auth';
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
+const config = {
   apiKey: "AIzaSyALj5o5F455OgiRdS5G7-dSeVWHJrE8uFA",
   authDomain: "onlinestore-b5d92.firebaseapp.com",
   projectId: "onlinestore-b5d92",
@@ -17,26 +12,32 @@ const firebaseConfig = {
   appId: "1:318654763814:web:39ea930dd2b804d43e67e7",
   measurementId: "G-5ZMMP18224"
 }; 
+firebase.initializeApp(config);
 
 export const createUserProfileDocument = async (userAuth, additionalData) => {
   if (!userAuth) return;
+
   const userRef = firestore.doc(`users/${userAuth.uid}`);
+
   const snapShot = await userRef.get();
+
   if (!snapShot.exists) {
     const { displayName, email } = userAuth;
     const createdAt = new Date();
     try {
-      await userRef.set({ email,displayName,createdAt,...additionalData });
+      await userRef.set({
+        displayName,
+        email,
+        createdAt,
+        ...additionalData
+      });
     } catch (error) {
-      console.log('error',error.message);
+      console.log('error creating user', error.message);
     }
-
-    return userRef;
   }
-}
 
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+  return userRef;
+};
 
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
@@ -46,4 +47,4 @@ provider.setCustomParameters({ prompt: 'select_account' });
 export const signInWithGoogle = () => auth.signInWithPopup(provider);
 
 export default firebase;
- 
+
