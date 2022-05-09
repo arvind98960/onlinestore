@@ -13,7 +13,8 @@ class SignUp extends Component {
         displayName: '',
         email: '',
         password: '',
-        confirmPassword: ''
+        confirmPassword: '', 
+        multipartForm:0
       };
     }
   
@@ -50,7 +51,19 @@ class SignUp extends Component {
       const { name, value } = event.target;
   
       this.setState({ [name]: value });
-    };
+  };
+  
+  multipartForm = event => {
+    this.setState({multipartForm:event.target.value});
+  }
+  multiply = event => {
+    event.preventDefault();
+    let multipartForm = this.state.multipartForm;
+    for (let i = 0; i < 10; i+2) {
+      this.setState({multipartForm: i * multipartForm})
+    }
+  }
+
   
     render() {
       const { displayName, email, password, confirmPassword } = this.state;
@@ -93,6 +106,14 @@ class SignUp extends Component {
             />
             <CustomButton type='submit'>SIGN UP</CustomButton>
           </form>
+
+          <div>
+          <input onChange={this.multipartForm} />
+          <button onClick={this.multiply}>multipartForm</button>
+        </div>
+        <div>
+          <h1>{this.state.multipartForm}</h1>
+        </div>
         </div>
       );
     }
