@@ -1,4 +1,3 @@
-
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
@@ -12,6 +11,7 @@ const config = {
   appId: "1:318654763814:web:39ea930dd2b804d43e67e7",
   measurementId: "G-5ZMMP18224"
 }; 
+
 firebase.initializeApp(config);
 
 export const createUserProfileDocument = async (userAuth, additionalData) => {
@@ -47,4 +47,3 @@ provider.setCustomParameters({ prompt: 'select_account' });
 export const signInWithGoogle = () => auth.signInWithPopup(provider);
 
 export default firebase;
-
